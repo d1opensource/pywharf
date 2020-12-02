@@ -8,8 +8,7 @@ RUN apt-get update && \
 ADD . /dist
 WORKDIR /dist
 
-RUN . /venv/bin/activate && poetry config virtualenvs.create false && poetry install --no-dev
-
+RUN . /venv/bin/activate && poetry config virtualenvs.create false && poetry build && pip install dist/pywharf-*.whl
 
 FROM gcr.io/distroless/python3-debian10
 COPY --from=build /venv /venv
